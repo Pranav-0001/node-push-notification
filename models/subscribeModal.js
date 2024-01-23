@@ -6,6 +6,11 @@ const subscriptionSchema = new mongoose.Schema(
       type: Object,
       required: true,
     },
+    owner: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+      ref: "users",
+    },
   },
   { timestamps: true }
 );
