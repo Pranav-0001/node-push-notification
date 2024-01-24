@@ -21,3 +21,24 @@ export const userSignup = async (req, res) => {
     console.log({ error });
   }
 };
+
+export const userLogin = async (req, res) => {
+  try {
+    const data = matchedData(req);
+    const user = await userModal.findOne({ email: data.email });
+    if (user) {
+      if (await bcrypt.compare(data.password, user.password)) {
+        const token = jwt.sign({ user }, process.env.JWT_KEY);
+        res.json({ status: true, user, token });
+      } else {
+        res.json({ status: false, Error: "Incorrect password" });
+      }
+    } else {
+      res.json({ status: false, Error: "Email not found" });
+    }
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+

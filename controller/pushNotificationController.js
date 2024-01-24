@@ -1,11 +1,12 @@
+import { matchedData } from "express-validator";
 import subscribeModal from "../models/subscribeModal.js";
 import webpush from "web-push";
+import pushNotificationModal from "../models/pushNotificationModal.js";
 export const pushSubscribe = async (req, res) => {
   try {
-    const { subscription } = req.body;
-    console.log(subscription);
+    const { subscription,owner } = req.body;
     const cratedSubscription = await new subscribeModal({
-      subscription,
+      subscription,owner
     }).save();
     console.log({ cratedSubscription });
   } catch (error) {}
@@ -49,3 +50,14 @@ export const triggerPushNotificationById = async (req, res) => {
     res.status(200).json({ status: true });
   } catch (error) {}
 };
+
+
+export const createPushNotification=async(req,res)=>{
+  try {
+    const data= matchedData(req)
+    const createdPushNotification=await new pushNotificationModal({data:data,createdBy:req.user?._id}).save()
+    res.json({status:true,createdPushNotification})
+  } catch (error) {
+    
+  }
+}

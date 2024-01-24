@@ -6,7 +6,6 @@ if (!this.document) {
       notification.options
     );
   });
-
   self.addEventListener(
     "notificationclick",
     function (event) {
@@ -24,7 +23,6 @@ if (!this.document) {
   async function registerServiceWorker() {
     await navigator.serviceWorker.register("main.js");
   }
-
   async function subscribeToPush() {
     const registration = await navigator.serviceWorker.getRegistration();
     const isAlreadySubscribed =
@@ -34,13 +32,15 @@ if (!this.document) {
         userVisibleOnly: true,
         applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY),
       });
+      var scriptElement = document.querySelector("script[data-owner]");
+      var owner = scriptElement.getAttribute("data-owner");
       console.log({ subscription });
       const res = await fetch("http://localhost:3000/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({subscription})
+        body: JSON.stringify({ subscription,owner }),
       });
     }
   }
