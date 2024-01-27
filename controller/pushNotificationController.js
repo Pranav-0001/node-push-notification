@@ -61,3 +61,13 @@ export const createPushNotification=async(req,res)=>{
     
   }
 }
+
+export const getAllPushNotificationByUser=async(req,res)=>{
+  try {
+    const user = req.user
+    console.log({user});
+  } catch (error) {
+    
+  }
+}
+

@@ -3,6 +3,7 @@ import subscribeModal from "../models/subscribeModal.js";
 
 import {
   createPushNotification,
+  getAllPushNotificationByUser,
   pushSubscribe,
   triggerPushNotificationById,
 } from "../controller/pushNotificationController.js";
@@ -21,6 +22,11 @@ router.post(
   createPushNotificationValidationSchema,
   validateRequest,
   createPushNotification
+);
+router.get(
+  "/getAllPushNotificationByUser",
+  validateToken,
+  getAllPushNotificationByUser
 );
 
 export default router;

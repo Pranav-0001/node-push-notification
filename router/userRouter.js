@@ -6,6 +6,6 @@ import { userLoginValidationSchema } from "../validationSchema/userLoginVaildati
 const router = express.Router();
 
 router.post('/signup',userSignupValidationSchema,validateRequest,userSignup)
-router.post('/login',userLoginValidationSchema,validateRequest,userLogin)
+router.post('/signin',userLoginValidationSchema,validateRequest,userLogin)
 
 export default router;

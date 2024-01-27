@@ -29,15 +29,16 @@ export const userLogin = async (req, res) => {
     if (user) {
       if (await bcrypt.compare(data.password, user.password)) {
         const token = jwt.sign({ user }, process.env.JWT_KEY);
-        res.json({ status: true, user, token });
+        res.status(200).json({ status: true, user, token }); // 200 OK for successful login
       } else {
-        res.json({ status: false, Error: "Incorrect password" });
+        res.status(401).json({ status: false, Error: "Incorrect password" }); // 401 Unauthorized for incorrect password
       }
     } else {
-      res.json({ status: false, Error: "Email not found" });
+      res.status(401).json({ status: false, Error: "Email not found" }); // 404 Not Found for email not found
     }
   } catch (error) {
     console.log({ error });
+    res.status(500).json({ status: false, Error: "Internal Server Error" }); // 500 Internal Server Error for unexpected errors
   }
 };
 
