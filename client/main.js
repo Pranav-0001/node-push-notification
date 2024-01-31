@@ -33,7 +33,7 @@ if (!this.document) {
         applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY),
       });
       var scriptElement = document.querySelector("script[data-owner]");
-      var owner = scriptElement.getAttribute("data-owner");
+      var owner = "65b3ec60b57e476d841b4b9d"
       console.log({ subscription });
       const res = await fetch("http://localhost:3000/subscribe", {
         method: "POST",

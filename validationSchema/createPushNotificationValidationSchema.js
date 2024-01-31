@@ -7,6 +7,6 @@ export const createPushNotificationValidationSchema = [
   body("options.actions.*.type").optional().isString(),
   body("options.actions.*.title").optional().isString(),
   body("options.actions.*.action").optional().isString(),
-  body("options.image").optional().isString().isURL(),
-  body("options.icon").optional().isString().isURL(),
+  body("options.image").optional().isString(),
+  body("options.icon").optional().isString(),
 ];

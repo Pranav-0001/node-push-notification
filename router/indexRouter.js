@@ -10,11 +10,18 @@ import {
 import { createPushNotificationValidationSchema } from "../validationSchema/createPushNotificationValidationSchema.js";
 import { validateRequest } from "../helpers/validateRequest.js";
 import { validateToken } from "../helpers/validateToken.js";
+import { triggerPushNotificationValidationSchema } from "../validationSchema/triggerPushNotificationValidationSchema.js";
 const router = express.Router();
 
 router.post("/subscribe", pushSubscribe);
 
-router.post("/trigger", triggerPushNotificationById);
+router.post(
+  "/trigger",
+  validateToken,
+  triggerPushNotificationValidationSchema,
+  validateRequest,
+  triggerPushNotificationById
+);
 
 router.post(
   "/create",
