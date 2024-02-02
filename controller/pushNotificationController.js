@@ -67,7 +67,7 @@ export const triggerPushNotificationById = async (req, res) => {
     subscriptions.forEach((obj) => {
       webpush
         .sendNotification(obj?.subscription, payload)
-        .catch((err) => console.error(err));
+        .catch((err) => console.log(err));
     });
     res.status(200).json({ status: true });
   } catch (error) {}
@@ -91,5 +91,15 @@ export const getAllPushNotificationByUser = async (req, res) => {
       createdBy: user._id,
     });
     res.status(200).json({ status: true, pushNotifications });
+  } catch (error) {}
+};
+
+export const getPushNotificationById = async (req, res) => {
+  try {
+    const { notificationId } = matchedData(req);
+    const notification = await pushNotificationModal.findOne({
+      _id: notificationId,
+    });
+    res.status(200).json({status:true,data:notification})
   } catch (error) {}
 };
