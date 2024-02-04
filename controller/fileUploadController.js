@@ -10,7 +10,6 @@ const bucket = admin.storage().bucket();
 
 export const imageUploadController = async (req, res) => {
   try {
-    console.log(req.file);
     const fileBuffer = req.file.buffer;
     const fileMimetype = req.file.mimetype;
     const fileName = req.file.originalname;

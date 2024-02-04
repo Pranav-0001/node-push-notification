@@ -33,22 +33,17 @@ if (!this.document) {
         applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY),
       });
       var scriptElement = document.querySelector("script[data-owner]");
-      var owner = "65b3ec60b57e476d841b4b9d"
-      console.log({ subscription });
+      var owner = "65b3ec60b57e476d841b4b9d";
       const res = await fetch("http://localhost:3000/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ subscription,owner }),
+        body: JSON.stringify({ subscription, owner }),
       });
     }
   }
 
-  /* Utility functions. */
-
-  // Convert a base64 string to Uint8Array.
-  // Must do this so the server can understand the VAPID_PUBLIC_KEY.
   const urlB64ToUint8Array = (base64String) => {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding)

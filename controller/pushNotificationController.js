@@ -9,7 +9,6 @@ export const pushSubscribe = async (req, res) => {
       subscription,
       owner,
     }).save();
-    console.log({ cratedSubscription });
   } catch (error) {}
 };
 
@@ -25,12 +24,6 @@ export const triggerPushNotificationById = async (req, res) => {
     const subscriptions = await subscribeModal.find({ owner: user?._id });
     const notification = await pushNotificationModal.findOne({
       _id: requestData?.notificationId,
-    });
-    console.log({
-      requestData,
-      user: req.user,
-      subscriptions,
-      notification: notification?.data,
     });
     webpush.setVapidDetails(
       "mailto:test@test.com",
@@ -63,7 +56,6 @@ export const triggerPushNotificationById = async (req, res) => {
       },
     });
     // Pass object into
-    console.log({ payload });
     subscriptions.forEach((obj) => {
       webpush
         .sendNotification(obj?.subscription, payload)
@@ -103,3 +95,13 @@ export const getPushNotificationById = async (req, res) => {
     res.status(200).json({status:true,data:notification})
   } catch (error) {}
 };
+
+export const updatePushNotificationById=async(req,res)=>{
+  try {
+    const {notificationId,...data} = matchedData(req);
+    const updatedRes= await pushNotificationModal.updateOne({_id:notificationId},{$set:{data:data}})
+    res.status(200).json({status:true})
+  } catch (error) {
+    
+  }
+}
